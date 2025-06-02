@@ -9,7 +9,7 @@
 // @todo: Вывести карточки на страницу
 
 //удаление карточки
-function handleCardDelete(cardElement) {
+function delteCard(cardElement) {
     cardElement.remove();  
 }
 
@@ -38,6 +38,6 @@ const placesList = document.querySelector('.places__list');
 
 //добавление всех карточек (6 штук)
 initialCards.forEach(cardBox => {
-    const cardElement = addCard(cardBox, handleCardDelete);
+    const cardElement = addCard(cardBox, delteCard);
     placesList.appendChild(cardElement);
 });
