@@ -9,12 +9,12 @@
 // @todo: Вывести карточки на страницу
 
 //удаление карточки
-function delteCard(cardElement) {
+function deleteCard(cardElement) {
     cardElement.remove();  
 }
 
 //добавление одной карточки
-function addCard(cardBox, deleteCallback) {
+function addCard(cardBox, deleteCard) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
@@ -27,7 +27,7 @@ function addCard(cardBox, deleteCallback) {
     cardTitle.textContent = cardBox.name;
 
     deleteButton.addEventListener('click', () => {
-        deleteCallback(cardElement);
+        deleteCard(cardElement);
     });
 
     return cardElement;
@@ -38,6 +38,6 @@ const placesList = document.querySelector('.places__list');
 
 //добавление всех карточек (6 штук)
 initialCards.forEach(cardBox => {
-    const cardElement = addCard(cardBox, delteCard);
+    const cardElement = addCard(cardBox, deleteCard);
     placesList.appendChild(cardElement);
 });
