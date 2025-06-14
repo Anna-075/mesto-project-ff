@@ -1,4 +1,4 @@
-import '../pages/index.css'; // импорт главного файла стилей
+import './pages/index.css'; // импорт главного файла стилей
 import { addCard, deleteCard, switchLike } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js';
 import { initialCards } from './cards.js';
@@ -26,6 +26,10 @@ const profileJob = document.querySelector('.profile__description');
 const formAdd = document.querySelector('.popup__form[name="new-place"]');
 const placeInput = document.querySelector('.popup__input_type_card-name');
 const linkInput = document.querySelector('.popup__input_type_url');
+
+// Для модального окна с картинкой
+const popupImage = imagePopup.querySelector('.popup__image');
+const popupCaption = imagePopup.querySelector('.popup__caption');
 
 // Инициализация карточек
 initialCards.forEach(cardBox => {
@@ -70,11 +74,8 @@ addButton.addEventListener('click', () => openModal(addPopup));
 
 // Открытие модального окна с картинкой
 function handleImageClick(cardBox) {
-    const popupImage = imagePopup.querySelector('.popup__image');
-    const popupCaption = imagePopup.querySelector('.popup__caption');
-
     popupImage.src = cardBox.link;
-    popupImage.alt = cardBox.naame;
+    popupImage.alt = cardBox.name;
     popupCaption.textContent = cardBox.name;
 
     openModal(imagePopup);

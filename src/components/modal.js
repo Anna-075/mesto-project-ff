@@ -7,11 +7,6 @@ export function openModal(modal) {
 // Закрытие модального окна
 export function closeModal(modal) {
   modal.classList.remove('popup_is-opened');
-
-  modal.addEventListener('transitionend', function handler() {
-    modal.removeEventListener('transitionend', handler);
-  });
-
   document.removeEventListener('keydown', handleEscClose);
 }
 
