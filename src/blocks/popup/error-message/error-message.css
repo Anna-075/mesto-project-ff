@@ -1,0 +1,11 @@
+.error-message {
+  color: #f00;
+  font-size: 12px;
+  display: block;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.error-message.visible {
+  opacity: 1;
+}

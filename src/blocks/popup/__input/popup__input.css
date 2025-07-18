@@ -20,3 +20,8 @@
     line-height: 15px;
   }
 }
+
+.popup__input.invalid {
+  border-bottom: #f00;
+}
+
