@@ -19,20 +19,23 @@ function setupFormValidation(form, config) {
         });
     });
 
-    form.addEventListener('submit', (evt) => evt.preventDefault());
+    // form.addEventListener('submit', (evt) => evt.preventDefault());
     toggleButtonState(inputs, button, config.inactiveButtonClass);
 }
 
 // Проверка валидности поля
 function checkInputValidity(form, input, config) {
     const errorElement = form.querySelector(`#${input.id}-error`);
-
-    if (!errorElement) return;
+    input.setCustomValidity('');
     
-    if (input.validity.patternMismatch) {
+    if (input.validity.valueMissing) {
+        input.setCustomValidity('Вы пропустили это поле');
+    } 
+    else if (input.type === 'url' && input.validity.typeMismatch) {
+        input.setCustomValidity('Введите адрес сайта');
+    }
+    else if (input.validity.patternMismatch) {
         input.setCustomValidity(input.dataset.errorMessage || "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы");
-    } else {
-        input.setCustomValidity('');
     }
 
     if (!input.validity.valid) {
@@ -40,7 +43,7 @@ function checkInputValidity(form, input, config) {
     } else {
         hideInputError(input, errorElement, config);
     }
-
+    
     errorElement.textContent = input.validationMessage;
 }
 
@@ -77,7 +80,16 @@ export function clearValidation(form, config) {
     const button = form.querySelector(config.submitButtonSelector);
 
     inputs.forEach(input => {
-        const errorElement = form.querySelector(`#${input.id}-error`);
+        let errorElement;
+        
+        if (form.name === 'edit-avatar') {
+            errorElement = form.querySelector('#avatar-url-error');
+        } else if (form.name === 'new-place' && input.id === 'url-input') {
+            errorElement = form.querySelector('#url-input-error');
+        } else {
+            errorElement = form.querySelector(`#${input.id}-error`);
+        }
+
         hideInputError(input, errorElement, config);
         input.setCustomValidity('');
     });

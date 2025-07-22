@@ -30,17 +30,6 @@ function getUserInfo() {
   return request('/users/me');
 }
 
-// Функция обновления данных на странице
-function updateProfileInfo(userData) {
-  const profileName = document.querySelector('.profile__title');
-  const profileDescription = document.querySelector('.profile__description');
-  const profileAvatar = document.querySelector('.profile__image');
-
-  profileName.textContent = userData.name;
-  profileDescription.textContent = userData.about;
-  profileAvatar.style.backgroundImage = `url('${userData.avatar}')`;
-}
-
 // Получение карточек
 function getInitialCards() {
   return request("/cards"); 
@@ -80,7 +69,6 @@ export {
   config,
   request,
   getUserInfo,
-  updateProfileInfo,
   getInitialCards,
   updateUserInfo,
   addNewCard,
