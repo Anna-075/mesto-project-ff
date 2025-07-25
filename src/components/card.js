@@ -54,8 +54,6 @@ export function deleteCard(cardElement, cardId) {
 
 // Обновление лайков с подтверждением от сервера
 export function switchLike(button, cardId, isLiked, userId) {
-    const originalLikeCount = button.closest('.card').querySelector('.card__like-count').textContent;
-    const originalButtonState = button.classList.contains('card__like-button_is-active');
     button.disabled = true;
 
     const likeAction = isLiked ? unlikeCard(cardId) : likeCard(cardId);
@@ -68,10 +66,6 @@ export function switchLike(button, cardId, isLiked, userId) {
         })
         .catch(err => {
             console.error('Ошибка при обновлении лайка:', err);
-            likeCountElement.textContent = originalLikeCount;
-            if (button.classList.contains('card__like-button_is-active') === originalButtonState) {
-                button.classList.toggle('card__like-button_is-active');
-            }
         })
         .finally(() => {
             button.disabled = false;

@@ -1,6 +1,6 @@
 import './pages/index.css';
 import { addCard, deleteCard, switchLike, initDeleteConfirmation } from './components/card.js';
-import { openModal, closeModal } from './components/modal.js';
+import { openModal, closeModal, prepareForm } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validation.js';
 
 import { getUserInfo, 
@@ -118,15 +118,15 @@ formAdd.addEventListener('submit', (evt) => {
 
 // Открытие модальных окон
 editButton.addEventListener('click', () => {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-    clearValidation(formEdit, validationConfig); 
+    prepareForm(formEdit, validationConfig, {
+        name: profileName.textContent,
+        description: profileJob.textContent
+    });
     openModal(editPopup);
 });
 
 addButton.addEventListener('click', () => {
-    formAdd.reset();
-    clearValidation(formAdd, validationConfig);
+    prepareForm(formAdd, validationConfig);
     openModal(addPopup);
 });
 
@@ -156,9 +156,8 @@ document.querySelectorAll('.popup').forEach(popup => {
 
 // Обработка аватара
 profileImage.addEventListener('click', () => {
-  avatarForm.reset();
-  clearValidation(avatarForm, validationConfig);
-  openModal(avatarPopup);
+    prepareForm(avatarForm, validationConfig);
+    openModal(avatarPopup);
 });
 
 avatarForm.addEventListener('submit', (evt) => {

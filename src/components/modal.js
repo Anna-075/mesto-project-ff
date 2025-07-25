@@ -1,3 +1,5 @@
+import { clearValidation } from './validation.js';
+
 // Открытие модального окна
 export function openModal(modal) {
   modal.classList.add('popup_is-opened');
@@ -19,4 +21,18 @@ function handleEscClose(evt) {
       document.removeEventListener('keydown', handleEscClose);
     }
   }
+}
+
+// Подготовка формы к валидации
+export function prepareForm(formElement, validationConfig, initialValues = {}) {
+    Object.entries(initialValues).forEach(([name, value]) => {
+        const input = formElement.querySelector(`[name="${name}"]`);
+        if (input) input.value = value;
+    });
+    
+    if (Object.keys(initialValues).length === 0) {
+        formElement.reset();
+    }
+
+    clearValidation(formElement, validationConfig, initialValues);
 }

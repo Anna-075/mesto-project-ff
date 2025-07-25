@@ -19,7 +19,6 @@ function setupFormValidation(form, config) {
         });
     });
 
-    // form.addEventListener('submit', (evt) => evt.preventDefault());
     toggleButtonState(inputs, button, config.inactiveButtonClass);
 }
 
@@ -75,23 +74,22 @@ function toggleButtonState(inputs, button, inactiveButtonClass) {
 }
 
 // Очистка валидации
-export function clearValidation(form, config) {
+export function clearValidation(form, config, initialValues = {}) {
     const inputs = form.querySelectorAll(config.inputSelector);
     const button = form.querySelector(config.submitButtonSelector);
 
     inputs.forEach(input => {
-        let errorElement;
-        
-        if (form.name === 'edit-avatar') {
-            errorElement = form.querySelector('#avatar-url-error');
-        } else if (form.name === 'new-place' && input.id === 'url-input') {
-            errorElement = form.querySelector('#url-input-error');
-        } else {
-            errorElement = form.querySelector(`#${input.id}-error`);
+        const errorElement = form.querySelector(`#${input.id}-error`);
+        input.classList.remove(config.inputErrorClass);
+        if (errorElement) {
+            errorElement.textContent = '';
+            errorElement.classList.remove(config.errorClass);
         }
-
-        hideInputError(input, errorElement, config);
         input.setCustomValidity('');
+
+        if (initialValues[input.name] !== undefined) {
+            input.value = initialValues[input.name];
+        }
     });
 
     if (button) {
