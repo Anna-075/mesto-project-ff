@@ -75,6 +75,7 @@ formEdit.addEventListener('submit', (evt) => {
     const submitButton = formEdit.querySelector('.popup__button');
     const initialText = submitButton.textContent;
     submitButton.textContent = 'Сохранение...';
+    submitButton.disabled = true;
 
     updateUserInfo(name, job)
       .then(userData => {
@@ -99,6 +100,7 @@ formAdd.addEventListener('submit', (evt) => {
   const submitButton = formAdd.querySelector('.popup__button');
   const initialText = submitButton.textContent;
   submitButton.textContent = 'Создание...';
+  submitButton.disabled = true;
 
   addNewCard(name, link)
     .then(cardData => {

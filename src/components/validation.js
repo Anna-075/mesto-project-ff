@@ -74,26 +74,15 @@ function toggleButtonState(inputs, button, inactiveButtonClass) {
 }
 
 // Очистка валидации
-export function clearValidation(form, config, initialValues = {}) {
+export function clearValidation(form, config) {
     const inputs = form.querySelectorAll(config.inputSelector);
     const button = form.querySelector(config.submitButtonSelector);
 
     inputs.forEach(input => {
         const errorElement = form.querySelector(`#${input.id}-error`);
-        input.classList.remove(config.inputErrorClass);
-        if (errorElement) {
-            errorElement.textContent = '';
-            errorElement.classList.remove(config.errorClass);
-        }
+        hideInputError(input, errorElement, config);
         input.setCustomValidity('');
-
-        if (initialValues[input.name] !== undefined) {
-            input.value = initialValues[input.name];
-        }
     });
 
-    if (button) {
-        button.disabled = true;
-        button.classList.add(config.inactiveButtonClass);
-    }
-}
+    toggleButtonState(inputs, button, config.inactiveButtonClass);
+} 
